@@ -1,47 +1,47 @@
 " Maintainer: Arseny Zarechnev <cyanidesign@gmail.com>
-" Version: 0.3
-" Last Modified: Apr 2, 2013
+" Version: 0.3.1
+" Last Modified: Apr 3, 2013
 " License: Public domain.
 " Url: http://www.vim.org/scripts/script.php?script_id=4493
-" Description: Bind pressing russian key in normal mode to toggle layout and
+" Description: Bind pressing Korean key in normal mode to toggle layout and
 " repeat same key.
 
-if exists('g:loaded_rusmode') || &cp || version < 700
-	finish
+if exists('g:loaded_kormode') || &cp || version < 700
+    finish
 endif
-let g:loaded_rusmode = 1
+let g:loaded_kormode = 1
 let s:is_mac = substitute(system('uname'), "\n", "", "") ==? 'Darwin'
 
 " Check if system is not MacOS
 if !s:is_mac
     " Must have commands for get and set layout
-    if !exists('g:rusmode_get_layout_command')
+    if !exists('g:kormode_get_layout_command')
         finish
     endif
 
-    if !exists('g:rusmode_set_layout_command')
+    if !exists('g:kormode_set_layout_command')
         finish
     endif
 endif
 
 if s:is_mac
     let s:current_dir = expand("<sfile>:p:h")
-    let g:rusmode_get_layout_command = s:current_dir . '/../changeInput'
-    let g:rusmode_set_layout_command = g:rusmode_get_layout_command
+    let g:kormode_get_layout_command = s:current_dir . '/../changeInput'
+    let g:kormode_set_layout_command = g:kormode_get_layout_command
 endif
 
-if !exists('g:rusmode_normal_layout')
-    let g:rusmode_normal_layout = 'U.S.'
+if !exists('g:kormode_normal_layout')
+    let g:kormode_normal_layout = 'U.S.'
 endif
 
 
-if !exists('g:rusmode_autotoggle_insertleave')
-    let g:rusmode_autotoggle_insertleave = 0
+if !exists('g:kormode_autotoggle_insertleave')
+    let g:kormode_autotoggle_insertleave = 0
 endif
 
 function s:ChangeLayout(key)
-    let l:current_layout = substitute(system(g:rusmode_get_layout_command), "\n", "", "")
-    if l:current_layout ==? g:rusmode_normal_layout
+    let l:current_layout = substitute(system(g:kormode_get_layout_command), "\n", "", "")
+    if l:current_layout ==? g:kormode_normal_layout
         if a:key ==? '/'
             return '.'
         elseif a:key ==? '?'
@@ -50,11 +50,11 @@ function s:ChangeLayout(key)
             return a:key
         endif
     endif
-    call system(g:rusmode_set_layout_command . ' ' . g:rusmode_normal_layout)
+    call system(g:kormode_set_layout_command . ' ' . g:kormode_normal_layout)
     return a:key
 endfunction
 
-if g:rusmode_autotoggle_insertleave
+if g:kormode_autotoggle_insertleave
     autocmd InsertLeave * call s:ChangeLayout("\<ESC>")
 endif
 
