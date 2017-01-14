@@ -11,6 +11,11 @@ Set layout to switch to. Defaults to 'U.S.'.
 ```vimscript
 let g:kormode_normal_layout='U.S.'
 ```
+Or you can set layout to switch to Korean. For example of Mac:
+```vimscript
+let g:kormode_normal_layout='두벌식'
+```
+
 You can find out the name of layout by switching on it and running changeInput binary in plugin directory.
 
 Automatically toggle to normal layout on leaving the insert mode. Defaults to 0.
